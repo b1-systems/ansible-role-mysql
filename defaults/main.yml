@@ -14,6 +14,9 @@ mysql_root_password: root
 mysql_root_password_update: no
 mysql_user_password_update: no
 
+# Set this to `yes` to enforce root password usage.
+mysql_unix_socket_plugin_disable: no
+
 mysql_enabled_on_startup: yes
 
 # update my.cnf. each time role is run? yes | no

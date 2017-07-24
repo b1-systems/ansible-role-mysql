@@ -28,6 +28,13 @@
     - DELETE FROM mysql.user WHERE User='{{ mysql_root_username }}' AND Host NOT IN ('localhost', '127.0.0.1', '::1')
   changed_when: false
 
+- name: Disable unix_socket plugin
+  command: 'mysql -NBe "{{ item }}"'
+  with_items:
+    - UPDATE mysql.user SET plugin = '' WHERE USER = 'root';
+  changed_when: false
+  when: mysql_unix_socket_plugin_disable | bool
+
 - name: Get list of hosts for the root user.
   command: mysql -NBe "SELECT Host FROM mysql.user WHERE User = '{{ mysql_root_username }}' ORDER BY (Host='localhost') ASC"
   register: mysql_root_hosts
